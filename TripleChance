@@ -1,0 +1,148 @@
+package Task;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.Scanner;
+import java.util.Map.Entry;
+import java.io.*;
+
+public class triplechance {
+
+	public static void main(String[] args) {
+
+		String betnumber;
+		char option;
+		int betamount=0,sum,total = 0;
+	    int singlebetwin_amount=0,doublebetwin_amount=0,triplebetwin_amount = 0;
+		String singlebet="" ,doublebet="",triplebet="";
+		int min=2,max=300000,totalwinamount=0;
+		System.out.println("Single bet between this number only 0-9"+"\n"+"Double Bet between this number only 00-99"+"\n"+"Triple bet betwen this number only 000-999");
+		System.out.println("Bet Amount 2,5,10,15,20,25,50,100");
+		Scanner sc=new Scanner(System.in);
+		Map<String,List<Integer>>map=new HashMap<>();
+		for(int j=0;j<=10;j++)
+		{
+			 Random rand = new Random();
+			 int winnumber = rand. nextInt(1000) + 0;
+			 
+			 String win=Integer.toString(winnumber);
+			 if(winnumber<10)
+			 {
+			win="00"+winnumber;
+			
+			 }
+			 else if(winnumber<100)
+			 {
+				 win="0"+winnumber;
+			 }
+			 System.out.println(win);
+			 
+
+		}
+		
+		do
+		  {
+			 betnumber=sc.next();
+			 betamount=sc.nextInt();
+
+			 List<Integer>list=new ArrayList<>();
+
+			 if(!map.containsKey(betnumber))
+			 {
+				map.put(betnumber, list);
+				
+			 } 
+		
+			 map.get(betnumber).add(betamount);
+			
+			System.out.println("Do you want to spin again");
+			 option=sc.next().charAt(0);
+		 }while((option=='Y')||(option=='y'));
+		 
+		System.out.println("this map values are"+map);
+		total=0;
+		
+		 Map<String, Integer>totalmap=new HashMap<>();
+		
+		for(Entry<String,List<Integer>>entry: map.entrySet())
+		 {
+		
+			 sum=0;
+		
+			 for(int i=0;i<entry.getValue().size();i++) {
+		     sum+=entry.getValue().get(i);	
+		     total+=entry.getValue().get(i);
+		     
+			 }
+			 System.out.println("Bet Amount Add"+sum);
+			 
+	       totalmap.put(entry.getKey(), sum);
+	       System.out.println("Total amount is:"+total);
+		 }
+		 System.out.println("this is total map value"+totalmap);
+			
+		 if((total>max))
+		 {
+			 System.out.println("Maximum amount 300000 so you will bet 300000 or below 300000 ");
+
+		 }
+		 else if((total<min)) {
+			 System.out.println("Bet Atleast minimum 2");
+		 }
+		 else {
+		 char ch;
+			String addstr="";
+		 Random rand = new Random();
+		 int winnumber = rand. nextInt(1000) + 0;
+			System.out.println("Win number"+winnumber);	
+			 String str1 = Integer.toString(winnumber);
+			
+
+System.out.println(str1);
+List<String> list = new ArrayList<String>();
+for (int i=0; i<str1.length(); i++)
+{
+	ch=str1.charAt(i);
+	String str2=String.valueOf(ch);
+list.add(str2); 
+
+}
+System.out.println( list);
+singlebet=list.get(2);
+System.out.println(singlebet);
+doublebet=list.get(1)+list.get(2);
+System.out.println(doublebet);
+triplebet=list.get(0)+list.get(1)+list.get(2);
+System.out.println(triplebet);
+
+
+if(totalmap.containsKey(singlebet))
+{
+	singlebetwin_amount=totalmap.get(singlebet)*9;
+	System.out.println("SingleBet Win:"+singlebetwin_amount);
+}
+if(totalmap.containsKey(doublebet))
+{
+ doublebetwin_amount=(totalmap.get(doublebet))*90;
+ System.out.println("DoubleBet Win:"+doublebetwin_amount);
+}
+if(totalmap.containsKey(triplebet))
+{
+ triplebetwin_amount=(totalmap.get(triplebet))*900;
+ System.out.println("TripleBet Win:"+triplebetwin_amount);
+}
+
+if(!totalmap.containsKey(singlebet)&&!totalmap.containsKey(doublebet)&&!totalmap.containsKey(triplebet))
+{
+System.out.println("You lost the game");
+}
+totalwinamount=singlebetwin_amount+doublebetwin_amount+triplebetwin_amount;
+System.out.println("Total Win Amount is:"+totalwinamount);
+		 }
+
+		 }			
+	}
